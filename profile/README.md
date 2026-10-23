@@ -29,10 +29,15 @@ máquina) está no [README do repositório](https://github.com/Brasil-Imposto/br
 
 1. **Uma issue primeiro.** Abra pelo formulário que combina com o que você quer fazer, ou escolha uma
    [issue aberta](https://github.com/Brasil-Imposto/brasil-imposto.github.io/issues) e comente que vai assumir.
-2. **Um pull request** com a mudança, documentado como diz a seção "O que todo pull request leva".
+2. **Um pull request para o ramo `staging`**, nunca para a `main`, com a mudança documentada como diz a seção "O que todo pull
+   request leva".
 3. **As checagens automáticas** (`ci` e `dco`) rodam e precisam passar.
-4. **A revisão:** o mantenedor lê, pede ajustes se for preciso e aprova.
-5. **O merge**, por squash. A `main` publica o site, então tudo o que entra nela vai ao ar.
+4. **A revisão:** o mantenedor lê, pede ajustes se for preciso e aprova. O merge no `staging` é por squash.
+5. **O site de testes:** cada merge no `staging` vai ao ar em <https://brasil-imposto.github.io/staging/>, onde a mudança é
+   conferida como vai ficar.
+6. **A produção, só depois disso:** quando tudo está bem no staging, o mantenedor promove o `staging` para a `main`, que publica
+   <https://brasil-imposto.github.io>. Uma funcionalidade nova vai com a sua chave desligada na produção, e só aparece ali quando o
+   mantenedor liga essa chave.
 
 ## Antes de começar
 
@@ -65,7 +70,7 @@ A governança diz também como o projeto chega a um segundo mantenedor e a um co
 
 ## Como preparar um pull request
 
-1. **Faça um fork** do repositório e crie um ramo a partir da `main`, com o tipo e o assunto em inglês: `fix/map-legend`,
+1. **Faça um fork** do repositório e crie um ramo a partir do `staging`, com o tipo e o assunto em inglês: `fix/map-legend`,
    `feat/senate-september-quota`, `docs/pipeline-guides`.
 2. **Um assunto por pull request.** Duas mudanças independentes são dois pull requests.
 3. **Assine cada commit** com `git commit -s` (Developer Certificate of Origin). O check `dco` recusa commit sem assinatura.
@@ -73,7 +78,11 @@ A governança diz também como o projeto chega a um segundo mantenedor e a um co
    mensagem do commit no merge). Tipos: `feat`, `fix`, `docs`, `refactor`, `test`, `ci`, `build`. Exemplos:
    `fix(site): map legend on phones`, `feat(data): Senate quota for September 2026`. A descrição do pull request pode ser em
    português ou em inglês.
-5. **Abra o pull request** para a `main`. O formulário do pull request já vem com as seções da próxima parte: preencha todas.
+5. **Uma funcionalidade nova que aparece na tela vem com a sua chave** em `data/features.json`: `key` em inglês, `issue` com o
+   número da issue, `staging: true` e `production: false`. Desligada, ela não entra na página da produção (nem marcação, nem
+   estilo, nem script); nunca é só escondida. Uma correção não precisa de chave.
+6. **Abra o pull request** para o `staging` (o ramo padrão do repositório). O formulário do pull request já vem com as seções da
+   próxima parte: preencha todas.
 
 ## O que todo pull request leva
 
@@ -145,9 +154,13 @@ Closes #57
   uma delas vermelha, o pull request não entra.
 - **Revisão:** hoje o mantenedor revisa todo pull request, inclusive os próprios: tudo entra por pull request, sem exceção. Ele
   pode pedir ajustes; responda no próprio pull request e envie novos commits no mesmo ramo.
-- **Merge:** por squash, com o título do pull request como mensagem.
-- **Produção:** a `main` publica o site em <https://brasil-imposto.github.io>. O merge só acontece com o ok do mantenedor, e o site
-  é conferido no ar depois do deploy.
+- **Merge:** no `staging`, por squash, com o título do pull request como mensagem, e só com o ok do mantenedor.
+- **Site de testes:** cada merge no `staging` publica <https://brasil-imposto.github.io/staging/>, com a faixa "Ambiente de testes"
+  e fora dos buscadores. Ali o mantenedor e quem contribuiu conferem a mudança antes de qualquer passo para a produção.
+- **Produção:** a `main` publica <https://brasil-imposto.github.io> e só recebe a promoção do `staging`: um pull request
+  `release: <data>` do mantenedor, com a lista do que ele leva, depois de tudo conferido no site de testes. Logo depois, a `main`
+  volta para o `staging` (back-merge), para os dois ramos não se afastarem. O site é conferido no ar depois do deploy.
+- **Correção urgente:** só o mantenedor, num ramo `hotfix/*` saído da `main`; a correção volta em seguida para o `staging`.
 
 ## Onde falar
 
@@ -160,9 +173,11 @@ Código: AGPL-3.0. Dados e textos: CC BY 4.0.
 ## In English
 
 Brasil-Imposto is a civic, nonpartisan, open-source map of Brazilian public money built only from official data. Anyone can
-contribute: open an issue through one of the forms, then a pull request to `main` from a fork, one subject per pull request, every
-commit signed off (`git commit -s`). Every pull request carries a `type(area): what changes` title in English, what changes and why, the
+contribute: open an issue through one of the forms, then a pull request to `staging` from a fork (branch from `staging`, never
+`main`), one subject per pull request, every commit signed off (`git commit -s`). Every pull request carries a `type(area): what changes` title in English, what changes and why, the
 related issue, before and after screenshots at 1440 and 420 px for any visible change, the official source of every new number,
-and the checks that were run with their output. The `ci` and `dco` checks must pass; the maintainer reviews and merges by squash,
-and `main` publishes the site. Issues and pull requests are welcome in Portuguese or English. Project documentation:
+and the checks that were run with their output. The `ci` and `dco` checks must pass; the maintainer reviews and merges by squash into
+`staging`, which publishes the test site <https://brasil-imposto.github.io/staging/>. Production (`main`) only receives the
+maintainer's promotion of `staging`, after the change was checked there, and a new feature ships behind its switch in
+`data/features.json`, off in production until the maintainer turns it on. Issues and pull requests are welcome in Portuguese or English. Project documentation:
 <https://github.com/Brasil-Imposto/brasil-imposto.github.io#readme>.
