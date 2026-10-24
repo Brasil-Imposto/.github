@@ -28,7 +28,8 @@ máquina) está no [README do repositório](https://github.com/Brasil-Imposto/br
 ## O caminho de uma contribuição
 
 1. **Uma issue primeiro.** Abra pelo formulário que combina com o que você quer fazer, ou escolha uma
-   [issue aberta](https://github.com/Brasil-Imposto/brasil-imposto.github.io/issues) e comente que vai assumir.
+   [issue aberta](https://github.com/Brasil-Imposto/brasil-imposto.github.io/issues) e comente que vai assumir. Antes, veja se a
+   tarefa já tem dono: uma issue, um pull request ou um ramo abertos sobre ela. Se tiver, comente lá em vez de começar outra.
 2. **Um pull request para o ramo `staging`**, nunca para a `main`, com a mudança documentada como diz a seção "O que todo pull
    request leva".
 3. **As checagens automáticas** (`ci` e `dco`) rodam e precisam passar.
@@ -173,7 +174,7 @@ Código: AGPL-3.0. Dados e textos: CC BY 4.0.
 ## In English
 
 Brasil-Imposto is a civic, nonpartisan, open-source map of Brazilian public money built only from official data. Anyone can
-contribute: open an issue through one of the forms, then a pull request to `staging` from a fork (branch from `staging`, never
+contribute: check that nobody has the task yet (an open issue, pull request or branch for it), open an issue through one of the forms, then a pull request to `staging` from a fork (branch from `staging`, never
 `main`), one subject per pull request, every commit signed off (`git commit -s`). Every pull request carries a `type(area): what changes` title in English, what changes and why, the
 related issue, before and after screenshots at 1440 and 420 px for any visible change, the official source of every new number,
 and the checks that were run with their output. The `ci` and `dco` checks must pass; the maintainer reviews and merges by squash into
