@@ -34,8 +34,8 @@ máquina) está no [README do repositório](https://github.com/Brasil-Imposto/br
    request leva".
 3. **As checagens automáticas** (`ci` e `dco`) rodam e precisam passar.
 4. **A revisão:** o mantenedor lê, pede ajustes se for preciso e aprova. O merge no `staging` é por squash.
-5. **O site de testes:** cada merge no `staging` vai ao ar em <https://brasil-imposto.github.io/staging/>, onde a mudança é
-   conferida como vai ficar.
+5. **O site de testes:** o `staging` vai ao ar em <https://brasil-imposto.github.io/staging/> (hoje pelo mantenedor, a cada lote
+   de merges; automático quando o deploy for ligado), onde a mudança é conferida como vai ficar.
 6. **A produção, só depois disso:** quando a mudança está bem no staging, o mantenedor a leva para a `main`, que publica
    <https://brasil-imposto.github.io>, uma tarefa aprovada por vez, nunca o `staging` inteiro. Uma funcionalidade nova vai com a sua chave desligada na produção, e só aparece ali quando o
    mantenedor liga essa chave.
@@ -156,7 +156,8 @@ Closes #57
 - **Revisão:** hoje o mantenedor revisa todo pull request, inclusive os próprios: tudo entra por pull request, sem exceção. Ele
   pode pedir ajustes; responda no próprio pull request e envie novos commits no mesmo ramo.
 - **Merge:** no `staging`, por squash, com o título do pull request como mensagem, e só com o ok do mantenedor.
-- **Site de testes:** cada merge no `staging` publica <https://brasil-imposto.github.io/staging/>, com a faixa "Ambiente de testes"
+- **Site de testes:** o `staging` é publicado em <https://brasil-imposto.github.io/staging/> (hoje pelo mantenedor, a cada lote de
+  merges; automático quando o deploy for ligado), com a faixa "Ambiente de testes"
   e fora dos buscadores. Ali o mantenedor e quem contribuiu conferem a mudança antes de qualquer passo para a produção.
 - **Produção:** a `main` publica <https://brasil-imposto.github.io> e recebe uma tarefa aprovada por vez: para cada uma, um
   pull request do mantenedor com só os commits dela, depois de conferida no site de testes; o que não foi aprovado fica no
