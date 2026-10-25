@@ -36,8 +36,8 @@ máquina) está no [README do repositório](https://github.com/Brasil-Imposto/br
 4. **A revisão:** o mantenedor lê, pede ajustes se for preciso e aprova. O merge no `staging` é por squash.
 5. **O site de testes:** cada merge no `staging` vai ao ar em <https://brasil-imposto.github.io/staging/>, onde a mudança é
    conferida como vai ficar.
-6. **A produção, só depois disso:** quando tudo está bem no staging, o mantenedor promove o `staging` para a `main`, que publica
-   <https://brasil-imposto.github.io>. Uma funcionalidade nova vai com a sua chave desligada na produção, e só aparece ali quando o
+6. **A produção, só depois disso:** quando a mudança está bem no staging, o mantenedor a leva para a `main`, que publica
+   <https://brasil-imposto.github.io>, uma tarefa aprovada por vez, nunca o `staging` inteiro. Uma funcionalidade nova vai com a sua chave desligada na produção, e só aparece ali quando o
    mantenedor liga essa chave.
 
 ## Antes de começar
@@ -158,9 +158,9 @@ Closes #57
 - **Merge:** no `staging`, por squash, com o título do pull request como mensagem, e só com o ok do mantenedor.
 - **Site de testes:** cada merge no `staging` publica <https://brasil-imposto.github.io/staging/>, com a faixa "Ambiente de testes"
   e fora dos buscadores. Ali o mantenedor e quem contribuiu conferem a mudança antes de qualquer passo para a produção.
-- **Produção:** a `main` publica <https://brasil-imposto.github.io> e só recebe a promoção do `staging`: um pull request
-  `release: <data>` do mantenedor, com a lista do que ele leva, depois de tudo conferido no site de testes. Logo depois, a `main`
-  volta para o `staging` (back-merge), para os dois ramos não se afastarem. O site é conferido no ar depois do deploy.
+- **Produção:** a `main` publica <https://brasil-imposto.github.io> e recebe uma tarefa aprovada por vez: para cada uma, um
+  pull request do mantenedor com só os commits dela, depois de conferida no site de testes; o que não foi aprovado fica no
+  `staging`. Logo depois, a `main` volta para o `staging` (back-merge), para os dois ramos não se afastarem. O site é conferido no ar depois do deploy.
 - **Correção urgente:** só o mantenedor, num ramo `hotfix/*` saído da `main`; a correção volta em seguida para o `staging`.
 
 ## Onde falar
